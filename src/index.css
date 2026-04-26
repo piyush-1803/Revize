@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: #6366f1;
+  --color-primary-container: #4f46e5;
+  --color-on-primary: #ffffff;
+  --color-secondary: #06b6d4;
+  --color-secondary-container: #0891b2;
+  --color-on-secondary: #ffffff;
+  --color-tertiary: #f43f5e;
+  --color-tertiary-container: #e11d48;
+  
+  --color-error: #ef4444;
+  --color-error-container: #b91c1c;
+
+  --color-background: #09090b;
+  --color-surface: #18181b;
+  --color-surface-container-low: #09090b;
+  --color-surface-container: #18181b;
+  --color-surface-container-high: #27272a;
+  --color-surface-container-highest: #3f3f46;
+  --color-surface-container-lowest: #09090b;
+
+  --color-on-surface: #fafafa;
+  --color-on-surface-variant: #a1a1aa;
+  --color-on-background: #fafafa;
+  
+  --color-outline: #3f3f46;
+  --color-outline-variant: #27272a;
+
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-bento: 1.5rem;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-surface font-sans antialiased selection:bg-primary/30;
+  }
+}
+
+@layer components {
+  .bento-card {
+    @apply bg-surface/80 border border-outline/50 rounded-3xl backdrop-blur-sm transition-all duration-200 hover:border-on-surface-variant/50;
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.progress-ring__circle {
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}

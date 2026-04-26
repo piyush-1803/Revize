@@ -1,0 +1,6 @@
+{
+  "name": "Revize - Revision Scheduler",
+  "description": "An automated revision scheduling engine that removes planning friction and automates spaced repetition for students.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

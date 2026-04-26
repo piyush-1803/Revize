@@ -1,0 +1,89 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Store user profile and preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "isOnboarded": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "isOnboarded"]
+    },
+    "Subject": {
+      "title": "Subject",
+      "description": "Academic subjects like Math, Physics, etc.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "color": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["name", "color", "userId"]
+    },
+    "Topic": {
+      "title": "Topic",
+      "description": "Specific topics within a subject for revision",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "userId": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["ACTIVE", "PAUSED", "ARCHIVED"] },
+        "difficulty": { "type": "string", "enum": ["Easy", "Medium", "Hard"] },
+        "streak": { "type": "integer" },
+        "lastRevised": { "type": "string", "format": "date-time" },
+        "nextRevisionDate": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "history": {
+          "type": "array",
+          "items": { "$ref": "#/entities/RevisionRecord" }
+        },
+        "attachments": {
+          "type": "array",
+          "items": { "$ref": "#/entities/Attachment" }
+        }
+      },
+      "required": ["name", "subjectId", "userId", "status", "difficulty", "streak", "nextRevisionDate", "createdAt"]
+    },
+    "RevisionRecord": {
+      "title": "RevisionRecord",
+      "description": "A record of a single revision session",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["COMPLETED", "SKIPPED", "RESCHEDULED"] }
+      },
+      "required": ["date", "status"]
+    },
+    "Attachment": {
+      "title": "Attachment",
+      "description": "A study resource attached to a topic",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["NOTE", "IMAGE", "DIAGRAM", "PDF"] },
+        "name": { "type": "string" }
+      },
+      "required": ["id", "type", "name"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Global user documents"
+    },
+    "/users/{userId}/subjects/{subjectId}": {
+      "schema": "Subject",
+      "description": "Subjects belonging to a user"
+    },
+    "/users/{userId}/topics/{topicId}": {
+      "schema": "Topic",
+      "description": "Topics belonging to a user"
+    }
+  }
+}
